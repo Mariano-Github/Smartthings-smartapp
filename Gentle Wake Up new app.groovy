@@ -414,8 +414,6 @@ def sendStartEvent(source) {
 	def eventData = [
 			name: "sessionStatus",
 			value: "running",
-			//name: "Switch",
-			//value: "on",
             descriptionText: "${app.label} has started dimming",
 			displayed: true,
 			linkText: app.label,
@@ -439,8 +437,6 @@ def sendStopEvent(source) {
 	def eventData = [
 			name: "sessionStatus",
 			value: "stopped",
-            //name: "Switch",
-		    //value: "on",
             descriptionText: "${app.label} has stopped dimming",
 			displayed: true,
 			linkText: app.label,
