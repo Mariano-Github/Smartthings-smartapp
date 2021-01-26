@@ -402,7 +402,7 @@ private healthCheck() {
 		return
 	}
 
-	increment()
+	//increment() // 26/01/2021 MCC modify for correct end % not reach, because even 1 min go to increment(): atomicState.runCounter + 1 and is >100 before ending
 }
 
 // ========================================================
