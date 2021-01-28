@@ -252,7 +252,7 @@ def completionPage() {
 
 		section("Modes and Phrases") {
 			input(name: "completionMode", type: "mode", title: "Change ${location.name} Mode To", description: null, required: false)
-			//input(name: "completionPhrase", type: "enum", title: "Execute The Phrase", description: null, required: false, multiple: false, options: location.helloHome.getPhrases().label)
+			//**(24-12-2020 new app not support HelloHome)** input(name: "completionPhrase", type: "enum", title: "Execute The Phrase", description: null, required: false, multiple: false, options: location.helloHome.getPhrases().label)
 		}
 
 		section("Delay") {
