@@ -368,6 +368,12 @@ def scheduledStart() {
 }
 
 public def start(source) {
+  
+// Not reSTART dimming when is running. For example, when smartlighting app resend activation for virtual switch (28/01/2021 MCC)
+    if (atomicState.runCounter >= 1) {
+     return
+    }
+	
 	log.trace "START"
 
 	sendStartEvent(source)
