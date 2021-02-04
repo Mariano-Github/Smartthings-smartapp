@@ -21,7 +21,7 @@
  * 	naturally. Once your lights have reached full brightness, optionally turn on
  * 	more things, or send yourself a text for a more gentle nudge into the waking
  * 	world (you may want to set your normal alarm as a backup plan).
- *  2021-14-01 Mariano Colmenarejo: Running in new app without virtual contoller. Canceled lines to create virtual controller and completion programming paragraphs
+ *  2021-14-01 Mariano Colmenarejo: Running in new app without virtual contoller. Canceled lines to create virtual controller and completion programming completionPhrase
  */
 definition(
 	name: "Gentle Wake Up",
