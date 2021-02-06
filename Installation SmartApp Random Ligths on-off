@@ -1,0 +1,18 @@
+Steps to install app on Smartthings IDE:
+
+Copy the SamarApp Random Ligths on-off code
+Open your IDE page
+click on “My SmartApps”
+Click in “+ New SmartApp”
+Click in “From Code”
+Paste the copied code in the into the blank app
+Click “Create”
+Click “Publish” and “For Me”
+(If the device handle “Gentle Wake Up Controller” has already been published for you, the following steps are not necessary)
+Click in “My Device Handlers”
+Click in “+ Create New Device Handler”
+Click in “From Example”
+Find and select “Gentle Wake Up Controller”
+Click in “Create”
+Click “Publish” and “For Me”
+You are now ready to install the SmartApp in the SmartThings App as explained in the pdf guide.
