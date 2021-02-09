@@ -125,8 +125,8 @@ def doorOpenTooLong() {
 //*** Send message for each contact open toolong ***
 void sendMessage(i,elapsed) {
    def minutes = new BigDecimal((elapsed + 1000) / 60000).setScale(1, BigDecimal.ROUND_HALF_UP)
-  //def msg = "${contacts[i].displayName} has been left open for ${minutes} minutes."
-  def msg = "${contacts[i].displayName}: Lleva ${minutes} minutos Abierta."
+   def msg = "${contacts[i].displayName} has been left open for ${minutes} minutes."
+  //def msg = "${contacts[i].displayName}: Lleva ${minutes} minutos Abierta."
 
   log.info msg
   if (location.contactBookEnabled) {
