@@ -62,6 +62,7 @@ def subscribe() {
   subscribe(contacts, "contact.closed", doorClosed)
 }
 
+//*** Wait for contact open event openThreshold ***
 def doorOpen(evt) {
   for (int i = 0; i < contacts.size(); i++) {
    log.debug "${contacts[i].displayName}= ${contacts[i].currentState("contact").value}"
@@ -70,8 +71,8 @@ def doorOpen(evt) {
   runIn(delay, doorOpenTooLong, [overwrite: true])
 }
 
+//*** Check if all contacts are closed ***
 def doorClosed(evt) {
-  // Check all contacts are closed
   def numContactsClosed = 0
   for (int i = 0; i < contacts.size(); i++) {
   log.debug "${contacts[i].displayName}= ${contacts[i].currentState("contact").value}"
@@ -79,13 +80,26 @@ def doorClosed(evt) {
     numContactsClosed = numContactsClosed + 1
    }
   } 
-   if (numContactsClosed == contacts.size()) {
+   if (numContactsClosed == contacts.size() && atomicState.runCounter > 0) {
+    def minutes = (openThreshold != null && openThreshold != "") ? openThreshold : 10
+    def msg = "All Selected Contacts Sensors Hare Closed Now. Time Warning Restart to: ${minutes} minutes."
+    log.info msg
+  if (location.contactBookEnabled) {
+    sendNotificationToContacts(msg, recipients)
+  } else {
+    if (phone) {
+      sendSms phone, msg
+    } else {
+      sendPush msg
+    }
      unschedule(doorOpenTooLong)
+     atomicState.runCounter = 0
    }  
+ }
 }
 
+//*** Check if every contact is open toolong ***
 def doorOpenTooLong() {
-  // Check if every contact is open toolong
  for (int i = 0; i < contacts.size(); i++) {
   log.debug "${contacts[i].displayName}= ${contacts[i].currentState("contact").value}"
   def freq = (frequency != null && frequency != "") ? frequency * 60 : 600
@@ -97,20 +111,23 @@ def doorOpenTooLong() {
     if (elapsed >= threshold) {
       log.debug "Contact has stayed open long enough since last check ($elapsed ms):  calling sendMessage()"
       sendMessage(i,elapsed)
+      atomicState.runCounter = atomicState.runCounter +1
       runIn(freq, doorOpenTooLong, [overwrite: false])
     } else {
       log.debug "Contact has not stayed open long enough since last check ($elapsed ms):  doing nothing"
     }
   } else {
     log.warn "doorOpenTooLong() called but contact is closed:  doing nothing"
-  }
+   }
  }
 }
 
+//*** Send message for each contact open toolong ***
 void sendMessage(i,elapsed) {
-  //def minutes = (openThreshold != null && openThreshold != "") ? openThreshold : 10
-  def minutes = new BigDecimal((elapsed + 1000) / 60000).setScale(1, BigDecimal.ROUND_HALF_UP)
-  def msg = "${contacts[i].displayName} has been left open for ${minutes} minutes."
+   def minutes = new BigDecimal((elapsed + 1000) / 60000).setScale(1, BigDecimal.ROUND_HALF_UP)
+  //def msg = "${contacts[i].displayName} has been left open for ${minutes} minutes."
+  def msg = "${contacts[i].displayName}: Lleva ${minutes} minutos Abierta."
+
   log.info msg
   if (location.contactBookEnabled) {
     sendNotificationToContacts(msg, recipients)
