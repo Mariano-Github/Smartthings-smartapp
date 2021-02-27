@@ -12,7 +12,7 @@
  *
  */
 metadata {
-    definition (name: "Gentle Wake Up Controller", namespace: "smartthings", author: "SmartThings") {
+    definition (name: "Gentle Wake Up Controller", namespace: "smartthings", author: "SmartThings", mnmn: "SmartThings", vid: "generic-switch") {
         capability "Switch"
         capability "Timed Session"
 
