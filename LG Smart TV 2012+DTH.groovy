@@ -16,7 +16,7 @@
 metadata {
 	definition (name: "LG Smart TV 2012+", namespace: "smartthings", author: "Sam Lalor") 
     {
-		capability "TV"
+	capability "TV"
       	capability "Music Player"
         capability "Refresh"
         capability "Switch"
@@ -127,14 +127,14 @@ def on()
 {
 	log.debug "Executing 'Power Toggle'"
 	return sendCommand(1)
-    sendEvent(name: "switch", value: "On")
+    sendEvent(name: "switch", value: "on")
 }
 
 def off()
 {
 	log.debug "Executing 'Power Toggle'"
 	return sendCommand(1)
-    sendEvent(name: "switch", value: "Off")
+    sendEvent(name: "switch", value: "off")
 }
 
 def channelUp() 
