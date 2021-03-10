@@ -58,6 +58,7 @@ def updated() {
 }
 
 def subscribe() {
+  atomicState.runCounter = 0
   subscribe(contacts, "contact.open", doorOpen)
   subscribe(contacts, "contact.closed", doorClosed)
 }
