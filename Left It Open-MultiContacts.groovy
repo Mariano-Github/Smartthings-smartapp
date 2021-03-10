@@ -83,7 +83,7 @@ def doorClosed(evt) {
   } 
    if (numContactsClosed == contacts.size() && atomicState.runCounter > 0) {
     def minutes = (openThreshold != null && openThreshold != "") ? openThreshold : 10
-    def msg = "All Selected Contacts Sensors Hare Closed Now. Time Warning Restart to: ${minutes} minutes."
+    def msg = "All Selected Contacts Sensors are Closed Now. Time Warning Restart to: ${minutes} minutes."
     log.info msg
   if (location.contactBookEnabled) {
     sendNotificationToContacts(msg, recipients)
