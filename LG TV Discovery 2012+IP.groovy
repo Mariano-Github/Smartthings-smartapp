@@ -24,6 +24,16 @@
  * -Can turn TV Power Off with power button. When these LG TVs 2012 are power OFF, the network does not work and therefore it is impossible to turn them ON.
  * IMPORTANT: Must be configure in your router the Fix IP for your TV or you must write the TV IP in th device configuration even 12Hours normally
  * (jun 2021) MODIFICATION for manual entry IP TV
+ * Steps to install manual with IP:
+ * Open smartApp “LG TV Discovery 2012 + IP” in your smartthings app
+ * Select IP Manual entry = Yes
+ * Write the IP of the TV in 192.xxx.x.xx format
+ * Click on “Discovery”, it will show another page with Select LG TV (1 found)
+ * Click on next
+ * Write the name for the smartApp and the TV controller
+ * Press on “TV key”: the pairing key will appear on the TV, (if the key does not appear on the TV, it is not compatible)
+ * Write the pairing key and press “Done”
+ * The smartApp will be added in your smartApps list and a device will be created for that TV at the end of the smartthings main page.
  */
  
 definition(
