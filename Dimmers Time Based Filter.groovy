@@ -94,7 +94,7 @@ def SwitchOn (evt) {
  log.debug "NextLevel= $NextLevel"
 
 for (int i = 0; i < dimmers.size(); i++) {
-   log.debug "${dimmers[i].displayName}= ${dimmers[i].currentValue("switch")}"
+   //log.debug "${dimmers[i].displayName}= ${dimmers[i].currentValue("switch")}"
    if (dimmers[i].currentValue("switch") == "on") { dimmers[i].setLevel(NextLevel) }
  }   
 }
