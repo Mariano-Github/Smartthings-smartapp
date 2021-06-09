@@ -69,9 +69,7 @@ def SwitchOn (evt) {
  def modeValid = 0
  if (location.currentMode == modeStart || modeStart == null) {
   modeValid = 1
- } else { 
-  modeValid = 0
- }
+ } 
  log.debug "modeValid = $modeValid"
  
  //Detect time period valid
@@ -79,9 +77,7 @@ def SwitchOn (evt) {
    def between = timeOfDayIsBetween(startTime, stopTime, new Date(), location.timeZone)
     if (between) {
         timeValid = 1
-    } else {
-        timeValid = 0
-    }
+    } 
  log.debug "timeValid = $timeValid"
 
  // set level for dimmer is on
@@ -94,7 +90,7 @@ def SwitchOn (evt) {
  log.debug "NextLevel= $NextLevel"
 
 for (int i = 0; i < dimmers.size(); i++) {
-   //log.debug "${dimmers[i].displayName}= ${dimmers[i].currentValue("switch")}"
-   if (dimmers[i].currentValue("switch") == "on") { dimmers[i].setLevel(NextLevel) }
+   //log.debug "$dimmers[i].displayName= $evt.displayName = $evt.displayName"
+   if (dimmers[i].displayName == evt.displayName ) { dimmers[i].setLevel(NextLevel) }
  }   
 }
