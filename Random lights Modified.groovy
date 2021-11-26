@@ -262,7 +262,8 @@ public def start(source) {
     //log.debug "start= ${atomicState.start}"
 
 // go to schedule ON-OFF
-    controlOnOff()
+    //controlOnOff()
+    lightsControl()
 }
 
 public def stop(source) {
@@ -283,17 +284,16 @@ public def stop(source) {
 // schedule ON-OFF 
 //===========================
 
-private controlOnOff(dimmer) {
+private controlOnOff(timeCalculated) {
 
 	if (!atomicState.running) {
 		return
 	}
 
   log.debug "Control ON-OFF: START New Delay"
-   
-  def newTime = timeCalculate(dimmer)
+  def newTime = timeCalculated
   log.debug "newTime Running= ${newTime / 60} minutes"
-  //newTime = 10
+
  // wait random time for next on-off change
   runIn(newTime, 'lightsControl', [overwrite: true])
 }
@@ -308,20 +308,24 @@ private lightsControl() {
 
     def dimmer = dimmers[deviceNum] 
     log.debug "dimmer= ${dimmer}"
-    
+    def Increment = 0
     if (dimmer.currentValue("switch") == "off") {
 			dimmer.on()
+            Increment = 0
            log.debug "Turn ON"
        } else {
        dimmer.off()
+       Increment = 3600
       log.debug "Turn OFF"
      }
 
- controlOnOff(dimmer)
-}
+ //controlOnOff()
+ log.debug "Increment= ${Increment}"
+ //timeCalculate(Increment)
+//}
 
 // Calculate new random time on-off
-private timeCalculate(dimmer) {
+//private timeCalculate(increment) {
  def Lower = 1
  def Upper = 15
  log.debug "Calculando"
@@ -337,15 +341,13 @@ private timeCalculate(dimmer) {
  }
  
  log.debug "Def.Max= ${Upper} minutes, Def.Min= ${Lower} minutes."
- 
+
  // Calculate random newtime between minDuration and MaxDuration
- def timeCalculate = new Random().nextInt((Upper * 60) - (Lower * 60)) + (Lower * 60)
-  // add 60 minutes to random time to turn On
-  if (dimmer.currentValue("switch") == "off") {
-   timeCalculate = timeCalculate + 3600
-   }
- log.debug "Calculated newTime= ${timeCalculate / 60} minutes"
- return timeCalculate
+ def timeCalculated = new Random().nextInt((Upper * 60) - (Lower * 60)) + (Lower * 60) + Increment
+
+ //log.debug "Calculated newTime= ${timeCalculated / 60} minutes"
+ //return timeCalculate
+ controlOnOff(timeCalculated)
 }
 
 // ========================================================
